@@ -15,9 +15,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./example-app
     
     steps:
     - uses: actions/checkout@v3
@@ -29,16 +26,16 @@ jobs:
         pip install poetry
     - name: Install Poetry Deps
       run: |
-        poetry install
+        poetry install -C example-app
     - name: Lint 
       run: |
-        poetry run task lint
+        poetry run task lint -C example-app
     - name: Format
       run: |
-        poetry run task formatter
+        poetry run task formatter -C example-app
     - name: Security
       run: |
-        poetry run task security
+        poetry run task security -C example-app
     - name: Test
       run: |
-        poetry run task test
+        poetry run task test -C example-app
