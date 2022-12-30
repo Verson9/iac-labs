@@ -27,9 +27,7 @@ jobs:
     - name: Install poetry
       run: |
         python -m pip install poetry
-    - name: Install Poetry Deps
-      run: |
-        poetry install
+
     - name: Lint 
       run: |
         poetry run task lint
