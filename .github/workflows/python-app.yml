@@ -57,10 +57,11 @@ jobs:
         uses: actions/cache@v3
         with:
           path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
-          key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
+          key: venv-${{ runner.os }}
           restore-keys: |
-            ${{ runner.os }}-poetry-
-            ${{ runner.os }}
+            venv-${{ runner.os }}
+            venv
+          
       - name: Lint 
         run: poetry run task lint
 
