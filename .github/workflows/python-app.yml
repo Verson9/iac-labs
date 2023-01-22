@@ -28,7 +28,7 @@ jobs:
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
-        path: /home/runner/work/<path>/example-app/.venv
+        path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
         key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
         restore-keys: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
 
@@ -41,7 +41,7 @@ jobs:
       group: static-check
     defaults:
       run:
-        working-directory: example-app
+        working-directory: ./example-app
 
     steps:
     - name: Restore dependencies
@@ -64,7 +64,7 @@ jobs:
       group: static-check
     defaults:
       run:
-        working-directory: example-app
+        working-directory: ./example-app
 
     steps:
     - name: Restore dependencies
