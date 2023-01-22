@@ -65,12 +65,12 @@ jobs:
     steps:
     - name: Security
       run: poetry run task security
-      
+
   unit-tests:
     concurrency:
       group: tests
     runs-on: ubuntu-latest
-    needs: build
+    needs: static-check
     defaults:
       run:
         working-directory: ./example-app
