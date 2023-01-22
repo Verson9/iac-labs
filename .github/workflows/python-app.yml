@@ -44,14 +44,17 @@ jobs:
         working-directory: ./example-app
 
     steps:
-      # - name: Checkout repository
-      #   uses: actions/checkout@v3
-      # - name: Install Python
-      #   uses: actions/setup-python@v3
-      #   with:
-      #     python-version: "3.10"
-      # - name: Install Poetry
-      #   uses: snok/install-poetry@v1.3.3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - name: Install Poetry
+        uses: snok/install-poetry@v1.3.3
+        with:
+          virtualenvs-in-project: true
+          virtualenvs-create: true
       - name: Restore dependencies
         id: restore-dependencies
         uses: actions/cache@v3
