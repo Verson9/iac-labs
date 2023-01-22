@@ -17,25 +17,36 @@ jobs:
       run:
         working-directory: ./example-app
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v3
+    - name: Checkout repo
+      uses: actions/checkout@v3
+    - name: Install Python
+      uses: actions/setup-python@v3
       with:
         python-version: "3.10"
-    - uses: snok/install-poetry@v1.3.3
-    - name: Install Poetry Deps
-      run: poetry install
-    - name: Cache build venv
-      id: cached-poetry-dependencies
-      uses: actions/cache@v3
-      with:
-        path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
-        key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
-        restore-keys: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
+    - name: Install Poetry
+      uses: snok/install-poetry@v1.3.3
+    # - name: Cache build venv
+    #   id: cached-poetry-dependencies
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
+    #     key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
+    #     restore-keys: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
 
+
+  install-deps:
+    environment: production_environment
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./example-app
+    steps:
+      - name: Install Poetry Deps
+        run: poetry install
 
   lint:
     environment: production_environment
-    needs: build
+    needs: install-deps
     runs-on: ubuntu-latest
     concurrency:
       group: static-check
@@ -44,21 +55,21 @@ jobs:
         working-directory: ./example-app
 
     steps:
-    - name: Restore dependencies
-      id: restore-dependencies
-      uses: actions/cache@v3
-      with:
-        path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
-        key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-poetry-
+    # - name: Restore dependencies
+    #   id: restore-dependencies
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
+    #     key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-poetry-
     - name: Lint 
       run: poetry run task lint
 
 
   formatter:
     environment: production_environment
-    needs: build
+    needs: install-deps
     runs-on: ubuntu-latest
     concurrency:
       group: static-check
@@ -67,20 +78,20 @@ jobs:
         working-directory: ./example-app
 
     steps:
-    - name: Restore dependencies
-      id: restore-dependencies
-      uses: actions/cache@v3
-      with:
-        path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
-        key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-poetry-
+    # - name: Restore dependencies
+    #   id: restore-dependencies
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
+    #     key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-poetry-
     - name: Format
       run: poetry run task formatter
 
   security:
     environment: production_environment
-    needs: build
+    needs: install-deps
     runs-on: ubuntu-latest
     concurrency:
       group: static-check
