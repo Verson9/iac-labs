@@ -47,7 +47,6 @@ jobs:
     - uses: Gr1N/setup-poetry@v8
     - name: Lint 
       run: poetry run task lint
-      shell: bash
 
 
   formatter:
@@ -64,9 +63,9 @@ jobs:
     - uses: Gr1N/setup-poetry@v8
     - name: Format
       run: poetry run task formatter
-      shell: build
 
   security:
+    environment: production_environment
     needs: build
     runs-on: ubuntu-latest
     concurrency:
@@ -78,10 +77,10 @@ jobs:
     steps:
     - name: Security
       run: poetry run task security
-      shell: bash
 
 
   unit-tests:
+    environment: production_environment
     needs: 
       - lint
       - formatter
@@ -93,4 +92,3 @@ jobs:
     steps:
     - name: Test
       run: poetry run task test
-      shell: bash
