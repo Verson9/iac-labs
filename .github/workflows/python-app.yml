@@ -7,7 +7,7 @@ on: [push]
 
 jobs:
   build:
-    # environment: production_environment
+    environment: production_environment
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -34,7 +34,7 @@ jobs:
         run: poetry install
 
   lint:
-    # environment: production_environment
+    environment: production_environment
     needs: build
     runs-on: ubuntu-latest
     concurrency:
