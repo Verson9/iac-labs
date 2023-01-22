@@ -47,7 +47,6 @@ jobs:
         with:
           path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
           key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
-          restore-keys: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
 
   lint:
     # environment: production_environment
@@ -60,14 +59,14 @@ jobs:
         working-directory: ./example-app
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Install Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.10"
-      - name: Install Poetry
-        uses: snok/install-poetry@v1.3.3
+      # - name: Checkout repository
+      #   uses: actions/checkout@v3
+      # - name: Install Python
+      #   uses: actions/setup-python@v3
+      #   with:
+      #     python-version: "3.10"
+      # - name: Install Poetry
+      #   uses: snok/install-poetry@v1.3.3
       - name: Restore dependencies
         id: restore-dependencies
         uses: actions/cache@v3
@@ -91,14 +90,14 @@ jobs:
         working-directory: ./example-app
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Install Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.10"
-      - name: Install Poetry
-        uses: snok/install-poetry@v1.3.3
+      # - name: Checkout repository
+      #   uses: actions/checkout@v3
+      # - name: Install Python
+      #   uses: actions/setup-python@v3
+      #   with:
+      #     python-version: "3.10"
+      # - name: Install Poetry
+      #   uses: snok/install-poetry@v1.3.3
       - name: Restore dependencies
         id: restore-dependencies
         uses: actions/cache@v3
