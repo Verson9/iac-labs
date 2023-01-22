@@ -39,7 +39,7 @@ jobs:
       group: static-check
     defaults:
       run:
-        working-directory: ./example-app
+        working-directory: example-app
 
     steps:
     - uses: Gr1N/setup-poetry@v8
@@ -55,7 +55,7 @@ jobs:
       group: static-check
     defaults:
       run:
-        working-directory: ./example-app
+        working-directory: example-app
 
     steps:
     - uses: Gr1N/setup-poetry@v8
@@ -70,7 +70,7 @@ jobs:
       group: static-check
     defaults:
       run:
-        working-directory: ./example-app
+        working-directory: example-app
 
     steps:
     - name: Security
