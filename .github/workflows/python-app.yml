@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    environment: production_environment
+    # environment: production_environment
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -35,7 +35,7 @@ jobs:
 
 
   install-deps:
-    environment: production_environment
+    # environment: production_environment
     needs: build
     runs-on: ubuntu-latest
     defaults:
@@ -46,7 +46,7 @@ jobs:
         run: poetry install
 
   lint:
-    environment: production_environment
+    # environment: production_environment
     needs: install-deps
     runs-on: ubuntu-latest
     concurrency:
@@ -69,7 +69,7 @@ jobs:
 
 
   formatter:
-    environment: production_environment
+    # environment: production_environment
     needs: install-deps
     runs-on: ubuntu-latest
     concurrency:
@@ -91,7 +91,7 @@ jobs:
       run: poetry run task formatter
 
   security:
-    environment: production_environment
+    # environment: production_environment
     needs: install-deps
     runs-on: ubuntu-latest
     concurrency:
@@ -106,7 +106,7 @@ jobs:
 
 
   unit-tests:
-    environment: production_environment
+    # environment: production_environment
     needs: 
       - lint
       - formatter
