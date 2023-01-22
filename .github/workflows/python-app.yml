@@ -37,7 +37,7 @@ jobs:
     needs: build
     defaults:
       run:
-        working-directory: ./example-app
+        working-directory: example-app
     steps:
     - name: Restore build venv
       id: restore-poetry-dependencies
@@ -55,7 +55,7 @@ jobs:
     needs: build
     defaults:
       run:
-        working-directory: ./example-app
+        working-directory: example-app
     steps:
     - name: Format
       run: poetry run task formatter
