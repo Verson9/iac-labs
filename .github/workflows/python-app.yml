@@ -27,8 +27,9 @@ jobs:
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
-        path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
-        key: ${{ runner.os }}-venv
+        path: /home/runner/work/<path>/example-app/.venv
+        key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
+        restore-keys: ${{ runner.os }}-poetry-
 
   lint:
     concurrency:
@@ -43,11 +44,12 @@ jobs:
       id: restore-poetry-dependencies
       uses: actions/cache@v3
       with:
-        path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
-        key: ${{ runner.os }}-venv
-        restore-keys: ${{ runner.os }}-venv
+        path: /home/runner/work/<path>/example-app/.venv
+        key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
+        restore-keys: ${{ runner.os }}-poetry-
     - name: Lint 
       run: poetry run task lint
+
   formatter:
     concurrency:
       group: static-check
@@ -59,6 +61,7 @@ jobs:
     steps:
     - name: Format
       run: poetry run task formatter
+
   security:
     concurrency:
       group: static-check
