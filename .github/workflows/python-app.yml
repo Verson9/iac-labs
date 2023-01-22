@@ -24,14 +24,14 @@ jobs:
         with:
           virtualenvs-in-project: true
           virtualenvs-create: true
-      - name: Install Poetry Deps
-        run: poetry install
       - name: Cache build venv
         id: cached-poetry-dependencies
         uses: actions/cache@v3
         with:
           path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
           key: venv-${{ runner.os }}
+      - name: Install Poetry Deps
+        run: poetry install
 
   lint:
     # environment: production_environment
