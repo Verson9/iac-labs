@@ -36,6 +36,7 @@ jobs:
 
   install-deps:
     environment: production_environment
+    needs: build
     runs-on: ubuntu-latest
     defaults:
       run:
