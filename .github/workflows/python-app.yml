@@ -7,7 +7,14 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+
+    runs-on: ${{ matrix.os }}
     defaults:
       run:
         working-directory: ./example-app
@@ -33,9 +40,16 @@ jobs:
       - name: Install Poetry Deps
         run: poetry install
 
-  lint:
+  lint:    
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     concurrency:
       group: static-check
     defaults:
@@ -67,9 +81,16 @@ jobs:
         run: poetry run task lint
 
 
-  formatter:
+  formatter:    
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     concurrency:
       group: static-check
     defaults:
@@ -99,9 +120,16 @@ jobs:
       - name: Format
         run: poetry run task formatter
 
-  security:
+  security:    
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     concurrency:
       group: static-check
     defaults:
@@ -132,12 +160,19 @@ jobs:
         run: poetry run task security
 
 
-  unit-tests:
+  unit-tests:    
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          
     needs: 
       - lint
       - formatter
       - security
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     defaults:
       run:
         working-directory: ./example-app
