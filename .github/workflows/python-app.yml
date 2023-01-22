@@ -75,7 +75,7 @@ jobs:
           path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
           key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
           restore-keys: |
-            ${{ runner.os }}-poetry-
+            ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
       - name: Lint 
         run: poetry run task lint
 
@@ -106,7 +106,7 @@ jobs:
           path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
           key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
           restore-keys: |
-            ${{ runner.os }}-poetry-
+            ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
       - name: Format
         run: poetry run task formatter
 
@@ -136,7 +136,7 @@ jobs:
           path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
           key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
           restore-keys: |
-            ${{ runner.os }}-poetry-
+            ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
       - name: Security
         run: poetry run task security
 
@@ -167,6 +167,6 @@ jobs:
           path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
           key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
           restore-keys: |
-            ${{ runner.os }}-poetry-
+            ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
       - name: Test
         run: poetry run task test
