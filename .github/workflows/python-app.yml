@@ -12,10 +12,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    concurrency:
+      group: build
     defaults:
       run:
         working-directory: ./example-app
-    
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v3
@@ -24,11 +25,55 @@ jobs:
     - uses: Gr1N/setup-poetry@v8
     - name: Install Poetry Deps
       run: poetry install
+    - name: Cache build venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/work/<path>/example-app/.venv
+        key: ${{ runner.os }}-venv
+
+  lint:
+    concurrency:
+      group: static-check
+    runs-on: ubuntu-latest
+    needs: build
+    defaults:
+      run:
+        working-directory: ./example-app
+    steps:
     - name: Lint 
       run: poetry run task lint
+  formatter:
+    concurrency:
+      group: static-check
+    runs-on: ubuntu-latest
+    needs: build
+    defaults:
+      run:
+        working-directory: ./example-app
+    steps:
     - name: Format
       run: poetry run task formatter
+  security:
+    concurrency:
+      group: static-check
+    runs-on: ubuntu-latest
+    needs: build
+    defaults:
+      run:
+        working-directory: ./example-app
+    steps:
     - name: Security
       run: poetry run task security
+      
+  unit-tests:
+    concurrency:
+      group: tests
+    runs-on: ubuntu-latest
+    needs: build
+    defaults:
+      run:
+        working-directory: ./example-app
+    steps:
     - name: Test
       run: poetry run task test
