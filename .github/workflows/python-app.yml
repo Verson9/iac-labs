@@ -38,9 +38,9 @@ jobs:
     # environment: production_environment
     needs: build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./example-app
+    # defaults:
+    #   run:
+    #     working-directory: ./example-app
     steps:
       - name: pwd
         run: pwd
