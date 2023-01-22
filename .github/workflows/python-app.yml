@@ -13,24 +13,6 @@ jobs:
       run:
         working-directory: ./example-app
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-    - name: Install Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-    - name: Install Poetry
-      uses: snok/install-poetry@v1.3.3
-
-
-  install-deps:
-    # environment: production_environment
-    needs: build
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./example-app
-    steps:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Install Python
@@ -50,7 +32,7 @@ jobs:
 
   lint:
     # environment: production_environment
-    needs: install-deps
+    needs: build
     runs-on: ubuntu-latest
     concurrency:
       group: static-check
@@ -74,14 +56,15 @@ jobs:
           path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
           key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
           restore-keys: |
-            ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
+            ${{ runner.os }}-poetry-
+            ${{ runner.os }}
       - name: Lint 
         run: poetry run task lint
 
 
   formatter:
     # environment: production_environment
-    needs: install-deps
+    needs: build
     runs-on: ubuntu-latest
     concurrency:
       group: static-check
@@ -105,13 +88,14 @@ jobs:
           path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
           key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
           restore-keys: |
-            ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
+            ${{ runner.os }}-poetry-
+            ${{ runner.os }}
       - name: Format
         run: poetry run task formatter
 
   security:
     # environment: production_environment
-    needs: install-deps
+    needs: build
     runs-on: ubuntu-latest
     concurrency:
       group: static-check
@@ -135,7 +119,8 @@ jobs:
           path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
           key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
           restore-keys: |
-            ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
+            ${{ runner.os }}-poetry-
+            ${{ runner.os }}
       - name: Security
         run: poetry run task security
 
