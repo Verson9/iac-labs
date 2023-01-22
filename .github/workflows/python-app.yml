@@ -11,6 +11,7 @@ on:
 
 jobs:
   build:
+    environment: production_environment
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -33,6 +34,7 @@ jobs:
 
 
   lint:
+    environment: production_environment
     needs: build
     runs-on: ubuntu-latest
     concurrency:
@@ -49,6 +51,7 @@ jobs:
 
 
   formatter:
+    environment: production_environment
     needs: build
     runs-on: ubuntu-latest
     concurrency:
@@ -61,7 +64,7 @@ jobs:
     - uses: Gr1N/setup-poetry@v8
     - name: Format
       run: poetry run task formatter
-      shell: bash
+      shell: build
 
   security:
     needs: build
