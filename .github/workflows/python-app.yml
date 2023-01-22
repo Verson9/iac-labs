@@ -42,6 +42,10 @@ jobs:
       run:
         working-directory: ./example-app
     steps:
+      - name: pwd
+        run: pwd
+      - name: ll
+        run: ls -a
       - name: Install Poetry Deps
         run: poetry install
 
