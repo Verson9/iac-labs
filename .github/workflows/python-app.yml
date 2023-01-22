@@ -44,7 +44,14 @@ jobs:
         working-directory: example-app
 
     steps:
-    - uses: Gr1N/setup-poetry@v8
+    - name: Restore dependencies
+      id: restore-dependencies
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/work/<path>/example-app/.venv
+        key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-poetry-
     - name: Lint 
       run: poetry run task lint
 
@@ -60,7 +67,14 @@ jobs:
         working-directory: example-app
 
     steps:
-    - uses: Gr1N/setup-poetry@v8
+    - name: Restore dependencies
+      id: restore-dependencies
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/work/<path>/example-app/.venv
+        key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-poetry-
     - name: Format
       run: poetry run task formatter
 
