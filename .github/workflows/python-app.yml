@@ -20,7 +20,7 @@ jobs:
         
     steps:
       - name: pwd
-        run: echo ${{ github.workspace }}
+        run: echo '${{ github.workspace }}'
       - name: ls
         run: ls ${{ github.workspace }}/example-app
       - name: Checkout repository
