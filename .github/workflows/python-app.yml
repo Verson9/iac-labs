@@ -19,8 +19,6 @@ jobs:
         shell: bash
         
     steps:
-      - name: PWD
-        run: echo $PWD
       - name: pwd
         run: echo $(pwd)
       - name: Checkout repository
