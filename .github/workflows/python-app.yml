@@ -30,16 +30,13 @@ jobs:
         with:
           virtualenvs-in-project: true
           virtualenvs-create: true
-      - name: echo VENY
-        run: echo $VENV && pwd && source $VENV && echo $VENV
       - name: Cache build venv
         id: cached-poetry-dependencies
         uses: actions/cache@v3
         with:
-          path: $VENV
+          path: $(pwd)/.venv
           key: venv-${{ runner.os }}
-          restore-keys: |
-            venv-${{ runner.os }}
+          restore-keys: venv-${{ runner.os }}
       - name: Install Poetry Deps
         run: poetry install
 
@@ -74,10 +71,9 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: $VENV
+          path: $(pwd)/.venv
           key: venv-${{ runner.os }}
-          restore-keys: |
-            venv-${{ runner.os }}
+          restore-keys: venv-${{ runner.os }}
           
       - name: Lint 
         run: poetry run task lint
@@ -114,10 +110,9 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: $VENV
+          path: $(pwd)/.venv
           key: venv-${{ runner.os }}
-          restore-keys: |
-            venv-${{ runner.os }}
+          restore-keys: venv-${{ runner.os }}
       - name: Format
         run: poetry run task formatter
 
@@ -152,10 +147,9 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: $VENV
+          path: $(pwd)/.venv
           key: venv-${{ runner.os }}
-          restore-keys: |
-            venv-${{ runner.os }}
+          restore-keys: venv-${{ runner.os }}
       - name: Security
         run: poetry run task security
 
@@ -191,9 +185,8 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: $VENV
+          path: $(pwd)/.venv
           key: venv-${{ runner.os }}
-          restore-keys: |
-            venv-${{ runner.os }}
+          restore-keys: venv-${{ runner.os }}
       - name: Test
         run: poetry run task test
