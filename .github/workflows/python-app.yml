@@ -31,7 +31,7 @@ jobs:
           virtualenvs-in-project: true
           virtualenvs-create: true
       - name: echo VENY
-        run: echo $VENV && pwd
+        run: echo $VENV && pwd && source $VENV && echo $VENV
       - name: Cache build venv
         id: cached-poetry-dependencies
         uses: actions/cache@v3
