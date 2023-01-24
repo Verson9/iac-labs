@@ -20,7 +20,7 @@ jobs:
         
     steps:
       - name: pwd
-        run: echo $(pwd)
+        run: echo ${GITHUB_WORKSPACE}
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Install Python
@@ -36,7 +36,7 @@ jobs:
         id: cached-poetry-dependencies
         uses: actions/cache@v3
         with:
-          path: $PWD/.venv
+          path: ${GITHUB_WORKSPACE}/.venv
           key: venv-${{ runner.os }}
           restore-keys: venv-${{ runner.os }}
       - name: Install Poetry Deps
@@ -73,7 +73,7 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: $PWD/.venv
+          path: ${GITHUB_WORKSPACE}/.venv
           key: venv-${{ runner.os }}
           restore-keys: venv-${{ runner.os }}
       - name: Lint 
@@ -111,7 +111,7 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: $PWD/.venv
+          path: ${GITHUB_WORKSPACE}/.venv
           key: venv-${{ runner.os }}
           restore-keys: venv-${{ runner.os }}
       - name: Format
@@ -148,7 +148,7 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: $PWD/.venv
+          path: ${GITHUB_WORKSPACE}/.venv
           key: venv-${{ runner.os }}
           restore-keys: venv-${{ runner.os }}
       - name: Security
@@ -186,7 +186,7 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: $PWD/.venv
+          path: ${GITHUB_WORKSPACE}/.venv
           key: venv-${{ runner.os }}
           restore-keys: venv-${{ runner.os }}
       - name: Test
