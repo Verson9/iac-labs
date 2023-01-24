@@ -30,15 +30,15 @@ jobs:
         with:
           virtualenvs-in-project: true
           virtualenvs-create: true
+      - name: Install Poetry Deps
+        run: poetry install
       - name: Cache build venv
         id: cached-poetry-dependencies
         uses: actions/cache@v3
         with:
           path: |
-            source $VENV
+            $VENV
           key: venv-${{ runner.os }}
-      - name: Install Poetry Deps
-        run: poetry install
 
   lint:    
     strategy:
@@ -71,7 +71,7 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: source $VENV
+          path: $VENV
           key: venv-${{ runner.os }}
           restore-keys: |
             venv-${{ runner.os }}
@@ -111,7 +111,7 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: source $VENV
+          path: $VENV
           key: venv-${{ runner.os }}
           restore-keys: |
             venv-${{ runner.os }}
@@ -149,7 +149,7 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: source $VENV
+          path: $VENV
           key: venv-${{ runner.os }}
           restore-keys: |
             venv-${{ runner.os }}
@@ -188,7 +188,7 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: source $VENV
+          path: $VENV
           key: venv-${{ runner.os }}
           restore-keys: |
             venv-${{ runner.os }}
