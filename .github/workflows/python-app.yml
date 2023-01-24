@@ -20,7 +20,9 @@ jobs:
         
     steps:
       - name: pwd
-        run: echo $GITHUB_WORKSPACE
+        run: echo ${{ github.workspace }}
+      - name: ls
+        run: ls ${{ github.workspace }}/example-app
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Install Python
