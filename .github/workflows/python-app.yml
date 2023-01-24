@@ -36,10 +36,8 @@ jobs:
         id: cached-poetry-dependencies
         uses: actions/cache@v3
         with:
-          path: |
-            /home/runner/work/iac-labs/iac-labs/example-app/.venv
-            D:\a\iac-labs\iac-labs\example-app\.venv
-          key: venv-${{ runner.os }}
+          path:  ${{ if eq(runner.os, 'Windows') 'D:\a\iac-labs\iac-labs\example-app\.venv' '/home/runner/work/iac-labs/iac-labs/example-app/.venv'}}
+          key: ${{ runner.os }}-poetry-{{ hashFiles('poetry.lock') }}
 
   lint:    
     strategy:
@@ -72,7 +70,7 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
+          path:  ${{ if eq(runner.os, 'Windows') 'D:\a\iac-labs\iac-labs\example-app\.venv' '/home/runner/work/iac-labs/iac-labs/example-app/.venv'}}
           key: venv-${{ runner.os }}
           restore-keys: |
             venv-${{ runner.os }}
@@ -112,7 +110,7 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
+          path:  ${{ if eq(runner.os, 'Windows') 'D:\a\iac-labs\iac-labs\example-app\.venv' '/home/runner/work/iac-labs/iac-labs/example-app/.venv'}}  
           key: venv-${{ runner.os }}
           restore-keys: |
             venv-${{ runner.os }}
@@ -150,7 +148,7 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
+          path:  ${{ if eq(runner.os, 'Windows') 'D:\a\iac-labs\iac-labs\example-app\.venv' '/home/runner/work/iac-labs/iac-labs/example-app/.venv'}}
           key: venv-${{ runner.os }}
           restore-keys: |
             venv-${{ runner.os }}
@@ -189,7 +187,7 @@ jobs:
         id: restore-dependencies
         uses: actions/cache@v3
         with:
-          path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
+          path:  ${{ if eq(runner.os, 'Windows') 'D:\a\iac-labs\iac-labs\example-app\.venv' '/home/runner/work/iac-labs/iac-labs/example-app/.venv'}}
           key: venv-${{ runner.os }}
           restore-keys: |
             venv-${{ runner.os }}
