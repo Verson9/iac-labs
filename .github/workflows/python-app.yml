@@ -28,18 +28,20 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1.3.3
         with:
-          virtualenvs-in-project: true
+#          virtualenvs-in-project: true
           virtualenvs-create: true
-      - name: Install Poetry Deps
-        run: poetry install
-      - name: echo VENY
-        run: echo $VENV
       - name: Cache build venv
         id: cached-poetry-dependencies
         uses: actions/cache@v3
         with:
           path: $VENV
           key: venv-${{ runner.os }}
+          restore-keys: |
+            venv-${{ runner.os }}
+      - name: Install Poetry Deps
+        run: poetry install
+      - name: echo VENY
+        run: echo $VENV
 
   lint:    
     strategy:
