@@ -32,12 +32,13 @@ jobs:
           virtualenvs-create: true
       - name: Install Poetry Deps
         run: poetry install
+      - name: echo VENY
+        run: echo $VENV
       - name: Cache build venv
         id: cached-poetry-dependencies
         uses: actions/cache@v3
         with:
-          path: |
-            $VENV
+          path: $VENV
           key: venv-${{ runner.os }}
 
   lint:    
