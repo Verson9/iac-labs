@@ -38,6 +38,7 @@ jobs:
         with:
           path: |
             /home/runner/work/iac-labs/iac-labs/example-app/.venv
+            D:\a\iac-labs\iac-labs\example-app\.venv
           key: venv-${{ runner.os }}
 
   lint:    
